@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Profile
 {
+    const GENDER_MAN = "MALE";
+    const GENDER_WOMAN = "FEMALE";
+    const GENDER_NON_BINAIRE = "Non binaire";
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -41,12 +44,6 @@ class Profile
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $picture;
-
-    /**
-     * @ORM\OneToOne(targetEntity=Role::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $role;
 
     public function getId(): ?int
     {
@@ -113,15 +110,4 @@ class Profile
         return $this;
     }
 
-    public function getRole(): ?role
-    {
-        return $this->role;
-    }
-
-    public function setRole(role $role): self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
 }

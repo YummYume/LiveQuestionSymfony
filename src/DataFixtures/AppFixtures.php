@@ -23,6 +23,9 @@ class AppFixtures extends Fixture
         $cute = new Category();
         $cute->setContent("Cute");
 
+        $manager->persist($profile);
+        $manager->persist($cute);
+        $manager->persist($admin);
         $manager->flush();
     }
 }

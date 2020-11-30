@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Présentation {% endblock title %}
+
+{% block body %}
+    {{ message }}
+    <a href="{{'second'}}"> lul </a>
+    <br><br><br>
+{% for new in news %}
+    {{ new }}<br>
+{% endfor %}
+{% endblock body %}
