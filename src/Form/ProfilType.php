@@ -24,6 +24,7 @@ class ProfilType extends AbstractType
                 ]
             ])
             ->add('picture')
+            ->add("role")
         ;
     }
 

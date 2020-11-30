@@ -3,7 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\ProfileRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
 
 /**
  * @ORM\Entity(repositoryClass=ProfileRepository::class)
@@ -19,19 +24,22 @@ class Profile
      * @ORM\Column(type="integer")
      */
     private $id;
-
+    
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Il vous faut un nom de compte")
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(message="L'email n'est pas valide")
      */
     private $mail;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex(pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$", message=" y'a tout là qui n'est pa bon mais après tu peux faire plusieurs regex pour cibler l'erreur" )
      */
     private $password;
 
@@ -44,6 +52,17 @@ class Profile
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $picture;
+
+    /**
+     * @ORM\OneToOne(targetEntity=ROle::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $role;
+
+    public function __construct()
+    {
+        $this->role = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -110,4 +129,15 @@ class Profile
         return $this;
     }
 
+    public function getRole(): ?ROle
+    {
+        return $this->role;
+    }
+
+    public function setRole(ROle $role): self
+    {
+        $this->role = $role;
+
+        return $this;
+    }
 }
