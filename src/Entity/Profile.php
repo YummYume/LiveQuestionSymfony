@@ -45,6 +45,12 @@ class Profile
      */
     private $picture;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Role::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $role;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,6 +112,18 @@ class Profile
     public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getRole(): ?role
+    {
+        return $this->role;
+    }
+
+    public function setRole(role $role): self
+    {
+        $this->role = $role;
 
         return $this;
     }
