@@ -12,6 +12,8 @@ class AppFixtures extends Fixture
     {
         $admin = new Role();
         $admin->setContent("Admin");
+        $user = new Role();
+        $user->setContent("User");
 
         $profile = new Profile();
         $profile->setUsername("Lythis");
@@ -25,7 +27,7 @@ class AppFixtures extends Fixture
         $profile2->setMail("UwU@OwO.fr");
         $profile2->setPassword("12345");
         $profile2->setGender("Helicoptere de combat");
-        $profile2->setRole($admin);
+        $profile2->setRole($user);
 
         $cute = new Category();
         $cute->setContent("Cute");
@@ -38,21 +40,29 @@ class AppFixtures extends Fixture
         $question->setVisible(true);
 
         $answer = new Answer();
+        $answer->setProfile($profile2);
         $answer->setTitle("Oui ça va merci");
         $answer->setDate(new \DateTime('2020-04-17 07:57:59'));
         $answer->setQuestion($question);
 
         $like = new Like();
-        $like->getQuestion($question);
-        $like->getProfile($profile);
+        $like->setQuestion($question);
+        $like->setProfile($profile);
 
         $friend = new Friend();
-        $friend->getProfileReceiver($profile);
-        $friend->getProfileSender($profile2);
+        $friend->setProfileReceiver($profile);
+        $friend->setProfileSender($profile2);
+        $friend->setRequestStatus(false);
 
-        $manager->persist($profile);    
         $manager->persist($cute);
+        $manager->persist($user);
+        $manager->persist($admin); 
+        $manager->persist($profile);
+        $manager->persist($profile2);
         $manager->persist($question);
+        $manager->persist($answer);
+        $manager->persist($like);
+        $manager->persist($friend);
         $manager->flush();
 
 
